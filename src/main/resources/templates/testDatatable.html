@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+	<table id="example" class="display" style="width: 100%">
+		<thead>
+			<tr>
+				<!-- <th>oid</th> -->
+				<th>ordertime</th>
+				<th>total</th>
+				<th>status</th>
+				<th>address</th>
+				<th>uid</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#example').DataTable( {
+		        "processing": true,
+		        //"serverSide": true,//由程序分页
+		        "lengthChange":false,//是否允许用户改变表格每页显示的记录数
+		        "searching":false,//禁用搜索（搜索框）
+		        "pagingType": "full_numbers",
+		        "ajax": {
+		            "url": "/goods/list2"
+		        },
+		        "columns": [
+		            { "data": "ordertime" },
+		            { "data": "total" },
+		            { "data": "status",//数据格式化
+	            	render: function ( data, type, row ) {
+	                    if ( data == '1') return "状态1";
+	                    if ( data == '2') return "状态2";
+	                    if ( data == '3') return "状态3";
+	                    if ( data == '4') return "状态4";
+	                    if ( data == '5') return "状态5";
+	                    return data;
+	                }},
+		            { "data": "address" },
+		            { "data": "uid" }
+		        ],
+		        "oLanguage" : { // 国际化配置
+		            "sProcessing" : "正在获取数据，请稍后...",
+		            "sLengthMenu" : "显示 _MENU_ 条",
+		            "sZeroRecords" : "没有找到数据",
+		            "sInfo" : "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
+		            "sInfoEmpty" : "记录数为0",
+		            "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+		            "sInfoPostFix" : "",
+		            "sSearch" : "查询",
+		            "sUrl" : "",
+		            "oPaginate" : {
+		                "sFirst" : "首页",
+		                "sPrevious" : "上一页",
+		                "sNext" : "下一页",
+		                "sLast" : "尾页"
+		            }
+		        }
+		    } );
+		});
+	</script>
+</body>
+</html>
